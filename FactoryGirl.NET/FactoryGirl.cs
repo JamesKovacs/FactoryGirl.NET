@@ -12,13 +12,25 @@ namespace FactoryGirl.NET
             builders.Add(typeof(T), () => builder());
         }
 
-        public static T Build<T>() {
+        public static T Build<T>()
+        {
             return Build<T>(x => { });
         }
 
         public static T Build<T>(Action<T> overrides) {
             var result = (T) builders[typeof(T)]();
             overrides(result);
+            return result;
+        }
+
+        public static T Build<T>(List<Action<T>> overrides)
+        {
+            var result = (T)builders[typeof(T)]();
+            foreach (var @override in overrides)
+            {
+                @override(result);
+            }
+
             return result;
         }
 

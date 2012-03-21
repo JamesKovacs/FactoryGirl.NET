@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Machine.Specifications;
 
 namespace FactoryGirl.NET.Specs {
@@ -37,6 +38,20 @@ namespace FactoryGirl.NET.Specs {
             public class When_we_build_a_customized_object {
                 Because of = () => builtObject = FactoryGirl.Build<Dummy>(x => x.Value = 42);
                 It should_update_the_specified_value = () => builtObject.Value.ShouldEqual(42);
+
+                static Dummy builtObject;
+            }
+
+            [Subject(typeof(FactoryGirl))]
+            public class When_we_build_a_customized_object_setting_multiple_values
+            {
+                Because of = () => builtObject = FactoryGirl.Build<Dummy>(new List<Action<Dummy>>
+                                                                              {
+                                                                                    x => x.Value = 42,
+                                                                                    x => x.AnotherValue = 43
+                                                                              });
+                It should_update_Value = () => builtObject.Value.ShouldEqual(42);
+                It should_update_AnotherValue = () => builtObject.AnotherValue.ShouldEqual(43);
 
                 static Dummy builtObject;
             }
