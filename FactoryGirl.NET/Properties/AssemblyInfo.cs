@@ -1,14 +1,13 @@
 ﻿using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("FactoryGirl.NET")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("A minimal .NET implementation of Thoughtbot's factory_girl for Ruby. If you are familiar, we only support defining factories and building objects using those factories. We do not support create (e.g. saving to the database), attributes_for, or build_stubbed yet.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("James Kovacs")]
 [assembly: AssemblyProduct("FactoryGirl.NET")]
 [assembly: AssemblyCopyright("Copyright ©  2012")]
 [assembly: AssemblyTrademark("")]

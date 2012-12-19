@@ -5,6 +5,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FactoryGirl.NET", "FactoryG
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FactoryGirl.NET.Specs", "FactoryGirl.NET.Specs\FactoryGirl.NET.Specs.csproj", "{9408FE34-CE98-4824-B289-2767225B1B5F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{64FF4D4A-0ECE-49D3-8852-46302C47A7C7}"
+	ProjectSection(SolutionItems) = preProject
+		DeployToNuGet.bat = DeployToNuGet.bat
+		license.txt = license.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
