@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <licenseUrl>https://github.com/JamesKovacs/FactoryGirl.NET/license.txt</licenseUrl>
+    <projectUrl>https://github.com/JamesKovacs/FactoryGirl.NET</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <releaseNotes>Support for defining factories and building objects using those factories.</releaseNotes>
+    <copyright>Copyright 2012</copyright>
+    <tags>factorygirl ruby objectmother</tags>
+  </metadata>
+</package>
