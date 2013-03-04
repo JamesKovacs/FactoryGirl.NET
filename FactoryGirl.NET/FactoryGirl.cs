@@ -4,30 +4,80 @@ using System.Linq;
 
 namespace FactoryGirl.NET
 {
-    public static class FactoryGirl {
-        private static readonly IDictionary<Type, Func<object>> builders = new Dictionary<Type, Func<object>>();
- 
-        public static void Define<T>(Func<T> builder) {
-            if(builders.ContainsKey(typeof(T))) throw new DuplicateFactoryException(typeof(T).Name + " is already registered. You can only register one factory per type.");
-            builders.Add(typeof(T), () => builder());
+    public static class FactoryGirl
+    {
+
+        private static readonly IDictionary<String, Func<object>> namedBuilders = new Dictionary<string, Func<object>>();
+
+        public static void Define<T>(string name, Func<T> builder)
+        {
+            string keyname = GetName<T>(name);
+            Define<T>(builder, keyname);
         }
 
-        public static T Build<T>() {
-            return Build<T>(x => { });
+        public static void Define<T>(Func<T> builder)
+        {
+            var key = GetKeyForType<T>();
+            Define<T>(builder, key);
         }
 
-        public static T Build<T>(Action<T> overrides) {
-            var result = (T) builders[typeof(T)]();
+        public static T Build<T>()
+        {
+            return BuildObject<T>(x => { });
+        }
+
+        public static T Build<T>(string name)
+        {
+            return BuildObject<T>( x => { }, name);
+        }
+
+        public static T Build<T>(Action<T> overrides)
+        {
+            return BuildObject(overrides);
+        }
+
+        public static T Build<T>(string name, Action<T> overrides)
+        {
+            return BuildObject(overrides, name);
+        }
+
+        public static IEnumerable<string> DefinedFactories
+        {
+            get { return namedBuilders.Select(x => x.Key); }
+        }
+
+        public static string GetName<T>(string name = "")
+        {
+            if (string.IsNullOrEmpty(name))
+            {
+                return GetKeyForType<T>();
+            }
+
+            return GetKeyForType<T>() + "_" + name;
+        }
+
+        public static void ClearFactoryDefinitions()
+        {
+            namedBuilders.Clear();
+        }
+
+        private static T BuildObject<T>(Action<T> overrides, string key = "")
+        {
+            var keyName = GetName<T>(key);
+            var result = (T)namedBuilders[keyName]();
             overrides(result);
             return result;
         }
 
-        public static IEnumerable<Type> DefinedFactories {
-            get { return builders.Select(x => x.Key); }
+        private static void Define<T>(Func<T> builder, string key = "")
+        {
+            if (namedBuilders.ContainsKey(key)) throw new DuplicateFactoryException(key + " is already registered. You can only register one factory per type/name.");
+            namedBuilders.Add(key, () => builder());
         }
 
-        public static void ClearFactoryDefinitions() {
-            builders.Clear();
+        private static string GetKeyForType<T>()
+        {
+            return typeof(T).FullName;
         }
     }
 }
