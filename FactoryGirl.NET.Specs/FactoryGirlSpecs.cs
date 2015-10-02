@@ -40,6 +40,22 @@ namespace FactoryGirl.NET.Specs {
 
                 static Dummy builtObject;
             }
+
+            [Subject(typeof(FactoryGirl))]
+            public class When_we_build_an_object_with_no_id_set
+            {
+                Establish context = () =>
+                {
+                    var Id1 = FactoryGirl.Build<Dummy>(x => x.Value = FactoryGirl.Build<int>());
+                    var Id2 = FactoryGirl.Build<Dummy>(x => x.Value = FactoryGirl.Build<int>());
+                };
+
+                Because of = () => builtObject = FactoryGirl.Build<Dummy>(x => x.Value = FactoryGirl.Build<int>());
+
+                It should_have_sequenced_values = () => builtObject.Value.ShouldEqual(3);
+
+                static Dummy builtObject;
+            }
         }
 
         public void AfterContextCleanup() {
