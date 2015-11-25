@@ -60,6 +60,21 @@ namespace FactoryGirl.NET.Specs {
 
                 static Dummy builtObject;
             }
+
+            [Subject(typeof(FactoryGirl))]
+            public class When_we_set_an_objects_string_property_to_be_sequenced {
+                Because of = () =>
+                {
+                    var firstUseOfSequencedString = FactoryGirl.Build<Dummy>();
+                    var secondUseOfSequencedString = FactoryGirl.Build<Dummy>();
+
+                    builtObject = FactoryGirl.Build<Dummy>(x => x.Value = FactoryGirl.Build<int>());
+                };
+
+                It should_have_next_value_in_sequence = () => builtObject.String.ShouldEqual("Test: 3");
+
+                static Dummy builtObject;
+            }
         }
 
         public void AfterContextCleanup() {

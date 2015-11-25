@@ -6,8 +6,11 @@ namespace FactoryGirl.NET.Specs
 
         public Dummy() {
             Value = DefaultValue;
+            String = FactoryGirl.Sequence("Test: ");
         }
 
         public int Value { get; set; }
+
+        public string String { get; set; }
     }
 }

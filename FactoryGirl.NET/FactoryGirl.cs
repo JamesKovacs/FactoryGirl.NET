@@ -31,6 +31,11 @@ namespace FactoryGirl.NET
             return result;
         }
 
+        public static string Sequence(string seed = null)
+        {
+            return seed == null ? Build<int>().ToString() : seed + Build<int>();
+        }
+
         public static IEnumerable<Type> DefinedFactories {
             get { return builders.Select(x => x.Key); }
         }
