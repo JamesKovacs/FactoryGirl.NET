@@ -3,10 +3,11 @@ namespace FactoryGirl.NET.Specs
     class Dummy
     {
         public const int DefaultValue = 1;
+        public const string DefaultString = "test";
 
         public Dummy() {
             Value = DefaultValue;
-            String = FactoryGirl.Sequence("Test: ");
+            String = DefaultString;
         }
 
         public int Value { get; set; }

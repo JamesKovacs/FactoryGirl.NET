@@ -50,13 +50,13 @@ namespace FactoryGirl.NET.Specs {
             public class When_we_set_an_objects_int_property_using_the_int_factory {
                 Because of = () =>
                 {
-                    var firstUseOfSequencedInt = FactoryGirl.Build<Dummy>(x => x.Value = FactoryGirl.Build<int>());
-                    var secondUseOfSequencedInt = FactoryGirl.Build<Dummy>(x => x.Value = FactoryGirl.Build<int>());
+                    var firstUseOfSequencedInt = FactoryGirl.Build<Dummy>(x => x.Value = FactoryGirl.Sequence<int>());
+                    var secondUseOfSequencedInt = FactoryGirl.Build<Dummy>(x => x.Value = FactoryGirl.Sequence<int>());
 
                     builtObject = FactoryGirl.Build<Dummy>(x => x.Value = FactoryGirl.Build<int>());
                 };
 
-                It should_have_next_value_in_sequence = () => builtObject.Value.ShouldEqual(3);
+                It should_set_the_int_to_the_next_value_in_sequence = () => builtObject.Value.ShouldEqual(3);
 
                 static Dummy builtObject;
             }
@@ -65,13 +65,29 @@ namespace FactoryGirl.NET.Specs {
             public class When_we_set_an_objects_string_property_to_be_sequenced {
                 Because of = () =>
                 {
-                    var firstUseOfSequencedString = FactoryGirl.Build<Dummy>();
-                    var secondUseOfSequencedString = FactoryGirl.Build<Dummy>();
+                    var firstUseOfSequencedString = FactoryGirl.Build<Dummy>(x => x.String = FactoryGirl.Sequence<string>());
+                    var secondUseOfSequencedString = FactoryGirl.Build<Dummy>(x => x.String = FactoryGirl.Sequence<string>());
 
-                    builtObject = FactoryGirl.Build<Dummy>(x => x.Value = FactoryGirl.Build<int>());
+                    builtObject = FactoryGirl.Build<Dummy>(x => x.String = FactoryGirl.Sequence<string>());
                 };
 
-                It should_have_next_value_in_sequence = () => builtObject.String.ShouldEqual("Test: 3");
+                It should_set_the_string_to_the_next_value_in_sequence = () => builtObject.String.ShouldEqual("3");
+
+                static Dummy builtObject;
+            }
+
+            [Subject(typeof(FactoryGirl))]
+            public class When_we_set_an_objects_string_property_to_be_sequenced_with_a_seed
+            {
+                Because of = () =>
+                {
+                    var firstUseOfSequencedString = FactoryGirl.Build<Dummy>(x => x.String = FactoryGirl.Sequence<string>());
+                    var secondUseOfSequencedString = FactoryGirl.Build<Dummy>(x => x.String = FactoryGirl.Sequence<string>());
+
+                    builtObject = FactoryGirl.Build<Dummy>(x => x.String = FactoryGirl.Sequence<string>("Test: "));
+                };
+
+                It should_set_the_string_to_the_next_value_in_sequence_with_the_seed_prefixed = () => builtObject.String.ShouldEqual("Test: 3");
 
                 static Dummy builtObject;
             }
