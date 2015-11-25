@@ -42,23 +42,21 @@ namespace FactoryGirl.NET.Specs {
             }
 
             [Subject(typeof(FactoryGirl))]
-            public class Sequenced_id_factory_should_be_predefined
-            {
+            public class When_we_first_use_FactoryGirl {
                 It should_contain_the_predefined_definition = () => FactoryGirl.DefinedFactories.ShouldContain(typeof(int));
             }
 
             [Subject(typeof(FactoryGirl))]
-            public class When_we_build_an_object_with_no_id_set
-            {
+            public class When_we_set_an_objects_int_property_using_the_int_factory {
                 Because of = () =>
                 {
-                    var Id1 = FactoryGirl.Build<Dummy>(x => x.Value = FactoryGirl.Build<int>());
-                    var Id2 = FactoryGirl.Build<Dummy>(x => x.Value = FactoryGirl.Build<int>());
+                    var firstUseOfSequencedInt = FactoryGirl.Build<Dummy>(x => x.Value = FactoryGirl.Build<int>());
+                    var secondUseOfSequencedInt = FactoryGirl.Build<Dummy>(x => x.Value = FactoryGirl.Build<int>());
 
                     builtObject = FactoryGirl.Build<Dummy>(x => x.Value = FactoryGirl.Build<int>());
                 };
 
-                It should_have_sequenced_values = () => builtObject.Value.ShouldEqual(3);
+                It should_have_next_value_in_sequence = () => builtObject.Value.ShouldEqual(3);
 
                 static Dummy builtObject;
             }
