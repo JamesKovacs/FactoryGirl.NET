@@ -28,15 +28,15 @@ namespace FactoryGirl.NET.Specs {
             public class When_we_build_a_default_object {
                 Because of = () => builtObject = FactoryGirl.Build<Dummy>();
                 It should_build_the_object = () => builtObject.ShouldNotBeNull();
-                It should_assign_the_default_value_for_the_property = () => builtObject.Value.ShouldEqual(Dummy.DefaultValue);
+                It should_assign_the_default_value_for_the_property = () => builtObject.Id.ShouldEqual(Dummy.DefaultValue);
 
                 static Dummy builtObject;
             }
 
             [Subject(typeof(FactoryGirl))]
             public class When_we_build_a_customized_object {
-                Because of = () => builtObject = FactoryGirl.Build<Dummy>(x => x.Value = 42);
-                It should_update_the_specified_value = () => builtObject.Value.ShouldEqual(42);
+                Because of = () => builtObject = FactoryGirl.Build<Dummy>(x => x.Id = 42);
+                It should_update_the_specified_value = () => builtObject.Id.ShouldEqual(42);
 
                 static Dummy builtObject;
             }
@@ -45,13 +45,13 @@ namespace FactoryGirl.NET.Specs {
             public class When_we_set_an_objects_int_property_using_the_int_factory {
                 Because of = () =>
                 {
-                    var firstUseOfSequencedInt = FactoryGirl.Build<Dummy>(x => x.Value = FactoryGirl.Sequence<int>());
-                    var secondUseOfSequencedInt = FactoryGirl.Build<Dummy>(x => x.Value = FactoryGirl.Sequence<int>());
+                    var firstUseOfSequencedInt = FactoryGirl.Build<Dummy>(x => x.Id = FactoryGirl.Sequence<int>());
+                    var secondUseOfSequencedInt = FactoryGirl.Build<Dummy>(x => x.Id = FactoryGirl.Sequence<int>());
 
-                    builtObject = FactoryGirl.Build<Dummy>(x => x.Value = FactoryGirl.Sequence<int>());
+                    builtObject = FactoryGirl.Build<Dummy>(x => x.Id = FactoryGirl.Sequence<int>());
                 };
 
-                It should_set_the_int_to_the_next_value_in_sequence = () => builtObject.Value.ShouldEqual(3);
+                It should_set_the_int_to_the_next_value_in_sequence = () => builtObject.Id.ShouldEqual(3);
 
                 static Dummy builtObject;
             }
@@ -96,14 +96,14 @@ namespace FactoryGirl.NET.Specs {
                 {
                     FactoryGirl.ResetSequence(presetValue);
 
-                    var firstUseOfSequencedInt = FactoryGirl.Build<Dummy>(x => x.Value = FactoryGirl.Sequence<int>());
-                    var secondUseOfSequencedInt = FactoryGirl.Build<Dummy>(x => x.Value = FactoryGirl.Sequence<int>());
+                    var firstUseOfSequencedInt = FactoryGirl.Build<Dummy>(x => x.Id = FactoryGirl.Sequence<int>());
+                    var secondUseOfSequencedInt = FactoryGirl.Build<Dummy>(x => x.Id = FactoryGirl.Sequence<int>());
 
-                    builtObject = FactoryGirl.Build<Dummy>(x => x.Value = FactoryGirl.Sequence<int>());
+                    builtObject = FactoryGirl.Build<Dummy>(x => x.Id = FactoryGirl.Sequence<int>());
                 };
 
 
-                It should_start_counting_sequenced_value_from_the_point_we_set = () => builtObject.Value.ShouldEqual(3 + presetValue);
+                It should_start_counting_sequenced_value_from_the_point_we_set = () => builtObject.Id.ShouldEqual(3 + presetValue);
 
                 static Dummy builtObject;
             }

@@ -6,11 +6,11 @@ namespace FactoryGirl.NET.Specs
         public const string DefaultString = "test";
 
         public Dummy() {
-            Value = DefaultValue;
+            Id = DefaultValue;
             String = DefaultString;
         }
 
-        public int Value { get; set; }
+        public int Id { get; set; }
 
         public string String { get; set; }
     }
