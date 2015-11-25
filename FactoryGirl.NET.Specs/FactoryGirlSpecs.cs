@@ -116,6 +116,15 @@ namespace FactoryGirl.NET.Specs {
 
                 static Exception exception;
             }
+
+            [Subject(typeof(FactoryGirl))]
+            public class When_we_try_to_seed_a_nonstring_sequenced_type
+            {
+                Because of = () => exception = Catch.Exception(() => FactoryGirl.Sequence<int>("seed"));
+                It should_throw_a_UnsequenceableTypeException = () => exception.ShouldBeOfType<UnsequenceableTypeException>();
+
+                static Exception exception;
+            }
         }
 
         public void AfterContextCleanup() {
