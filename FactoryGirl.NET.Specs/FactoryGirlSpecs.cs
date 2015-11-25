@@ -42,18 +42,13 @@ namespace FactoryGirl.NET.Specs {
             }
 
             [Subject(typeof(FactoryGirl))]
-            public class When_we_first_use_FactoryGirl {
-                It should_contain_the_predefined_definition = () => FactoryGirl.DefinedFactories.ShouldContain(typeof(int));
-            }
-
-            [Subject(typeof(FactoryGirl))]
             public class When_we_set_an_objects_int_property_using_the_int_factory {
                 Because of = () =>
                 {
                     var firstUseOfSequencedInt = FactoryGirl.Build<Dummy>(x => x.Value = FactoryGirl.Sequence<int>());
                     var secondUseOfSequencedInt = FactoryGirl.Build<Dummy>(x => x.Value = FactoryGirl.Sequence<int>());
 
-                    builtObject = FactoryGirl.Build<Dummy>(x => x.Value = FactoryGirl.Build<int>());
+                    builtObject = FactoryGirl.Build<Dummy>(x => x.Value = FactoryGirl.Sequence<int>());
                 };
 
                 It should_set_the_int_to_the_next_value_in_sequence = () => builtObject.Value.ShouldEqual(3);
@@ -95,6 +90,7 @@ namespace FactoryGirl.NET.Specs {
 
         public void AfterContextCleanup() {
             FactoryGirl.ClearFactoryDefinitions();
+            FactoryGirl.ResetSequence();
         }
     }
 }
