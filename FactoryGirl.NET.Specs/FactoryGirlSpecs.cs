@@ -107,6 +107,15 @@ namespace FactoryGirl.NET.Specs {
 
                 static Dummy builtObject;
             }
+
+            [Subject(typeof(FactoryGirl))]
+            public class When_we_try_to_sequence_an_unsequencable_type
+            {
+                Because of = () => exception = Catch.Exception(() => FactoryGirl.Sequence<Dummy>());
+                It should_throw_a_UnsequenceableTypeException = () => exception.ShouldBeOfType<UnsequenceableTypeException>();
+
+                static Exception exception;
+            }
         }
 
         public void AfterContextCleanup() {
