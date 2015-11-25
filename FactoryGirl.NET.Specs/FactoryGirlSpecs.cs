@@ -86,6 +86,27 @@ namespace FactoryGirl.NET.Specs {
 
                 static Dummy builtObject;
             }
+
+            [Subject(typeof(FactoryGirl))]
+            public class When_we_reset_sequence_to_a_value
+            {
+                const int presetValue = 5;
+
+                Because of = () =>
+                {
+                    FactoryGirl.ResetSequence(presetValue);
+
+                    var firstUseOfSequencedInt = FactoryGirl.Build<Dummy>(x => x.Value = FactoryGirl.Sequence<int>());
+                    var secondUseOfSequencedInt = FactoryGirl.Build<Dummy>(x => x.Value = FactoryGirl.Sequence<int>());
+
+                    builtObject = FactoryGirl.Build<Dummy>(x => x.Value = FactoryGirl.Sequence<int>());
+                };
+
+
+                It should_start_counting_sequenced_value_from_the_point_we_set = () => builtObject.Value.ShouldEqual(3 + presetValue);
+
+                static Dummy builtObject;
+            }
         }
 
         public void AfterContextCleanup() {

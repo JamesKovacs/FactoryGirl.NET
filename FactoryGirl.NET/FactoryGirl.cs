@@ -52,9 +52,9 @@ namespace FactoryGirl.NET
             get { return builders.Select(x => x.Key); }
         }
 
-        public static void ResetSequence()
+        public static void ResetSequence(int start = 0)
         {
-            m_counter = 0;
+            m_counter = start;
         }
 
         public static void ClearFactoryDefinitions() {
