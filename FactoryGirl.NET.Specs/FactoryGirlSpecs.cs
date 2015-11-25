@@ -72,8 +72,7 @@ namespace FactoryGirl.NET.Specs {
             }
 
             [Subject(typeof(FactoryGirl))]
-            public class When_we_set_an_objects_string_property_to_be_sequenced_with_a_seed
-            {
+            public class When_we_set_an_objects_string_property_to_be_sequenced_with_a_seed {
                 Because of = () =>
                 {
                     var firstUseOfSequencedString = FactoryGirl.Build<Dummy>(x => x.String = FactoryGirl.Sequence<string>());
@@ -88,8 +87,7 @@ namespace FactoryGirl.NET.Specs {
             }
 
             [Subject(typeof(FactoryGirl))]
-            public class When_we_reset_sequence_to_a_value
-            {
+            public class When_we_reset_sequence_to_a_value {
                 const int presetValue = 5;
 
                 Because of = () =>
@@ -109,8 +107,7 @@ namespace FactoryGirl.NET.Specs {
             }
 
             [Subject(typeof(FactoryGirl))]
-            public class When_we_try_to_sequence_an_unsequencable_type
-            {
+            public class When_we_try_to_sequence_an_unsequencable_type {
                 Because of = () => exception = Catch.Exception(() => FactoryGirl.Sequence<Dummy>());
                 It should_throw_a_UnsequenceableTypeException = () => exception.ShouldBeOfType<UnsequenceableTypeException>();
 
@@ -118,8 +115,7 @@ namespace FactoryGirl.NET.Specs {
             }
 
             [Subject(typeof(FactoryGirl))]
-            public class When_we_try_to_seed_a_nonstring_sequenced_type
-            {
+            public class When_we_try_to_seed_a_nonstring_sequenced_type {
                 Because of = () => exception = Catch.Exception(() => FactoryGirl.Sequence<int>("seed"));
                 It should_throw_a_UnsequenceableTypeException = () => exception.ShouldBeOfType<UnsequenceableTypeException>();
 
