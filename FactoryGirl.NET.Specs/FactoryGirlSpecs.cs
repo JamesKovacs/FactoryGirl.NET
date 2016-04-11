@@ -1,5 +1,6 @@
 ﻿using System;
 using Machine.Specifications;
+using Shouldly;
 
 namespace FactoryGirl.NET.Specs {
     [Subject(typeof(FactoryGirl))]
@@ -28,7 +29,7 @@ namespace FactoryGirl.NET.Specs {
             public class When_we_build_a_default_object {
                 Because of = () => builtObject = FactoryGirl.Build<Dummy>();
                 It should_build_the_object = () => builtObject.ShouldNotBeNull();
-                It should_assign_the_default_value_for_the_property = () => builtObject.Value.ShouldEqual(Dummy.DefaultValue);
+                It should_assign_the_default_value_for_the_property = () => builtObject.Value.ShouldBe(Dummy.DefaultValue);
 
                 static Dummy builtObject;
             }
@@ -36,7 +37,7 @@ namespace FactoryGirl.NET.Specs {
             [Subject(typeof(FactoryGirl))]
             public class When_we_build_a_customized_object {
                 Because of = () => builtObject = FactoryGirl.Build<Dummy>(x => x.Value = 42);
-                It should_update_the_specified_value = () => builtObject.Value.ShouldEqual(42);
+                It should_update_the_specified_value = () => builtObject.Value.ShouldBe(42);
 
                 static Dummy builtObject;
             }
